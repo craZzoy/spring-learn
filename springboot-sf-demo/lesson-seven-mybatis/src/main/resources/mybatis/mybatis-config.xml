@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--引入datasource配置信息-->
+    <properties resource="mybatis/mybatis.properties"/>
+
+    <!--mybatis运行时行为全局配置-->
+    <settings>
+        <!--打开缓存-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <plugins>
+        <plugin interceptor="com.segfault.interceptor.PageInterceptor">
+            <property name="limit" value="10"/>
+            <property name="dbType" value="mysql"/>
+        </plugin>
+    </plugins>
+
+    <environments default="dev">
+        <environment id="dev">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver-class}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <!--类似hibernate方言-->
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"/>
+        <property name="Oracle" value="oracle"/>
+    </databaseIdProvider>
+
+    <mappers>
+        <mapper resource="mybatis/mapper/UserMapper1.xml"/>
+        <mapper resource="mybatis/mapper/UserMapper.xml"/>
+        <mapper resource="mybatis/mapper/UserMapper2.xml"/>
+        <mapper class="com.segfault.annotation.MyMapper"/>
+    </mappers>
+
+
+</configuration>

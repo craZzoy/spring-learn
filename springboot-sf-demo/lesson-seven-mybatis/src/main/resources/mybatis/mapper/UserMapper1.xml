@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.UserMapper">
+    <!--映射User对象类型-->
+    <resultMap id="UserResultMap" type="com.segfault.entity.User">
+        <id column="id" property="id"/>
+        <result column="name" javaType="java.lang.String" property="name"/>
+        <result column="age" property="age"/>
+        <result column="desc" property="description" typeHandler="com.segfault.handle.DescriptionTypeHandle"/>
+        <result column="height" property="height"/>
+    </resultMap>
+
+
+    <!--根据配置的数据源自动选择selectUser，此时必须配置databaseIdProvider-->
+    <select databaseId="mysql" id="selectUser" parameterType="int" resultMap="UserResultMap">
+        select id,name,age,`desc`,height from user where id = #{id}
+    </select>
+
+    <select databaseId="oracle" id="selectUser" parameterType="int" resultMap="UserResultMap">
+        select id,name,age,`desc`,height from user where id = #{id}
+    </select>
+
+    <!--        select id,name,age,`desc`,height from user where name LIKE "%"#{id}"%"-->
+    <select databaseId="mysql" id="selectUserForName" parameterType="String" resultMap="UserResultMap">
+        select id,name,age,`desc`,height from user where name = #{name}
+    </select>
+
+
+</mapper>

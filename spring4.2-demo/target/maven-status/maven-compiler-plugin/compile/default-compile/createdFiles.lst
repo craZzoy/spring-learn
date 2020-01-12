@@ -1,0 +1,7 @@
+com\web\SpitterController.class
+com\config\WebConfig.class
+com\web\IndexController.class
+com\vo\Spitter.class
+com\config\RootConfig.class
+com\config\SpittrWebAppInitializer.class
+com\config\ThymeleafConfig.class

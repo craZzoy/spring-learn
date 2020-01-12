@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.segfault.dao.UserDao">
+    <!--映射User对象类型-->
+    <resultMap id="UserResultMap" type="com.segfault.entity.User">
+        <id column="id" property="id"/>
+        <result column="name" javaType="java.lang.String" property="name"/>
+        <result column="age" property="age"/>
+        <result column="desc" property="description" typeHandler="com.segfault.handle.DescriptionTypeHandle"/>
+        <result column="height" property="height"/>
+    </resultMap>
+
+    <resultMap id="ClassResultMap" type="com.segfault.entity.Class">
+        <id property="id" column="c_id"/>
+        <result property="name" column="c_name"/>
+        <association property="teacher" javaType="com.segfault.entity.Teacher">
+            <id property="id" column="t_id"/>
+            <result property="name" column="t_name"/>
+            <result property="sex" column="sex"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="ClassResultMap1" type="com.segfault.entity.Class">
+        <id property="id" column="c_id"/>
+        <result property="name" column="c_name"/>
+        <association property="teacher" javaType="com.segfault.entity.Teacher">
+            <id property="id" column="t_id"/>
+            <result property="name" column="t_name"/>
+            <result property="sex" column="sex"/>
+        </association>
+        <collection property="students" ofType="com.segfault.entity.Student">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="classId" column="class_id"/>
+        </collection>
+    </resultMap>
+
+
+    <!--根据配置的数据源自动选择selectUser，此时必须配置databaseIdProvider-->
+    <select databaseId="mysql" id="selectUser" parameterType="int" resultMap="UserResultMap">
+        select id,name,age,`desc`,height from user where id = #{id}
+    </select>
+
+    <select databaseId="oracle" id="selectUser" parameterType="int" resultMap="UserResultMap">
+        select id,name,age,`desc`,height from user where id = #{id}
+    </select>
+
+    <select databaseId="mysql" id="selectUserForName" parameterType="String" resultMap="UserResultMap">
+        select id,name,age,`desc`,height from user where name LIKE "%"#{id}"%"
+    </select>
+
+    <select databaseId="mysql" id="selectUsers" parameterType="String" resultMap="UserResultMap">
+        select id,name,age,`desc`,height from user
+    </select>
+
+    <select databaseId="mysql" id="selectUsersByPage" resultMap="UserResultMap">
+        select id,name,age,`desc`,height from user
+    </select>
+
+    <select databaseId="mysql" id="selectUsersByPageParam" resultMap="UserResultMap">
+        select id,name,age,`desc`,height from user
+    </select>
+
+    <!--一对一查询-->
+    <select databaseId="mysql" parameterType="int" id="selectClassRelationTeacher" resultMap="ClassResultMap">
+        select * from class c,teacher t where c.teacher_id = t.t_id and c.c_id = #{id}
+    </select>
+
+    <!--一对多查询-->
+    <select databaseId="mysql" parameterType="int" id="selectOneToMuti" resultMap="ClassResultMap1">
+        select * from class c,teacher t,student s where c.teacher_id = t.t_id and c.c_id = s.class_id and c.c_id = #{id}
+    </select>
+</mapper>
