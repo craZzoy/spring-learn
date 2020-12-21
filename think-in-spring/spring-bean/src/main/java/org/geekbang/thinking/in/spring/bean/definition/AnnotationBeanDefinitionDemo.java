@@ -1,48 +1,42 @@
 package org.geekbang.thinking.in.spring.bean.definition;
 
-import org.geekbang.thinking.in.spring.bean.domain.User;
-import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import com.geekbang.ioc.overview.dependency.domain.User;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.util.StringUtils;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.stereotype.Component;
 
 /**
  * @Description: 注解BeanDefinition demo
  * @Author :
  * @Date : 15:00 2020/12/16
  */
+@Import(AnnotationBeanDefinitionDemo.Config.class)
 public class AnnotationBeanDefinitionDemo {
 
     public static void main(String[] args) {
         //创建Bean容器
         final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-
-
-        //通过BeanDefinition API注册Bean
-        //命名注册Bean
-        registerUserBeanDefinition(context, "naming-user");
-        //非命名注册Bean
-        registerUserBeanDefinition(context, null);
+        //注册配置Bean
+        context.register(AnnotationBeanDefinitionDemo.class);
         //启动应用上下文
         context.refresh();
         System.out.println("user 类型的所有Bean：" + context.getBeansOfType(User.class));
         //关闭上下文
         context.close();
+
     }
 
 
-    public static void registerUserBeanDefinition(BeanDefinitionRegistry registry, String name){
-        final BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(User.class);
-        beanDefinitionBuilder
-                .addPropertyValue("id", 1)
-                .addPropertyValue("name", "JackMa");
-        if (StringUtils.hasText(name)){
-            //命名注册Bean
-            registry.registerBeanDefinition(name,beanDefinitionBuilder.getBeanDefinition());
-        } else {
-            //非命名注册Bean
-            BeanDefinitionReaderUtils.registerWithGeneratedName(beanDefinitionBuilder.getBeanDefinition(), registry);
+    @Component
+    public static class Config {
+
+        @Bean(name = {"user", "user-alias"})
+        public User user (){
+            User user1 = new User();
+            user1.setName("杰克马");
+            user1.setAge(35);
+            return user1;
         }
     }
 

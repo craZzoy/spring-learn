@@ -1,6 +1,6 @@
 package org.geekbang.thinking.in.spring.bean.definition;
 
-import org.geekbang.thinking.in.spring.bean.domain.User;
+import com.geekbang.ioc.overview.dependency.domain.User;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -18,6 +18,7 @@ public class BeanDefinitionGenerationDemo {
         //设置Bean属性
         beanDefinitionBuilder.addPropertyValue("id", 1);
         beanDefinitionBuilder.addPropertyValue("name", "JackMa");
+        beanDefinitionBuilder.setParentName("parent");
         //获取BeanDefinition
         BeanDefinition beanDefinition = beanDefinitionBuilder.getBeanDefinition();
         System.out.println(beanDefinition.getBeanClassName());
