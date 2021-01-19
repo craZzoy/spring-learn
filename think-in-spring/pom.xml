@@ -11,7 +11,7 @@
         <module>java-beans-demo</module>
         <module>spring-core-demo</module>
         <module>ioc-container-overview</module>
-<module>spring-bean</module>
+        <module>spring-bean</module>
     </modules>
     <packaging>pom</packaging>
 

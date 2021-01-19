@@ -32,6 +32,14 @@ public class User {
         this.age = age;
     }
 
+    public static User createUser(){
+        User user = new User();
+        user.setName("Tom Cat");
+        user.setId(10);
+        user.setAge(12);
+        return user;
+    }
+
     @Override
     public String toString() {
         return "User{" +

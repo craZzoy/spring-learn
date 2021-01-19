@@ -5,6 +5,7 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * @Description: BeanDefinition创建demo
@@ -22,6 +23,8 @@ public class BeanDefinitionGenerationDemo {
         //获取BeanDefinition
         BeanDefinition beanDefinition = beanDefinitionBuilder.getBeanDefinition();
         System.out.println(beanDefinition.getBeanClassName());
+
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 
 
         //2、通过AbstractBeanDefinition构建
