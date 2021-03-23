@@ -32,6 +32,15 @@ public class User {
         this.age = age;
     }
 
+    public User() {
+    }
+
+    public User(Integer id, String name, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
     public static User createUser(){
         User user = new User();
         user.setName("Tom Cat");
