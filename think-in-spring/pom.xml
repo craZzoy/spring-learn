@@ -12,7 +12,9 @@
         <module>spring-core-demo</module>
         <module>ioc-container-overview</module>
         <module>spring-bean</module>
-        <module>spring-expression-language</module>
+        <module>dependency-lookup</module>
+        <module>dependency-injection</module>
+		<module>spring-expression-language</module>
     </modules>
     <packaging>pom</packaging>
 
