@@ -14,6 +14,9 @@
         <module>spring-bean</module>
         <module>dependency-lookup</module>
         <module>dependency-injection</module>
+		<module>spring-expression-language</module>
+        <module>rocketmq-sample</module>
+        <module>mangodb-java-sample</module>
     </modules>
     <packaging>pom</packaging>
 
